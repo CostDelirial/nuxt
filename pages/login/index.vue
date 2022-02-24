@@ -46,6 +46,7 @@
 
 <script>
 export default {
+   auth: false,
    name: 'Login',
    data() {
        return {
@@ -74,11 +75,7 @@ export default {
                 } 
             try {
       //consulta a base de datos mediante $auth. axios integrado con loginWith
-            const resp = await this.$auth.loginWith('local',{data:formdata})
-            .then(() =>{
-               
-            })
-            .catch( (error)=>(console.log(error)))
+            const resp = await this.$auth.loginWith('local',{data:formdata}).catch( (error)=>(console.log(error)))
                this.$auth.$storage.setLocalStorage('authtoken',resp.data.Data.AuthenticationToken) //guardado de token en localstorage
                console.log(resp)
             }catch(e){
