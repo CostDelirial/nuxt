@@ -1,11 +1,16 @@
-export default ({ store, redirect}) => {
+export default ({  store, redirect}) => {
     
+    console.log(store.state.auth.loggedIn);
+    if( store.state.auth.loggedIn){
+        return redirect('/signup')
+    }
     if(!store.state.authenticated) return redirect('/login')
-    //const loggedIn = true;
+   
+    console.log(loggedIn)
 
-    console.log('middleware de router')
+    //console.log('middleware de router')
 
-    /*if(!loggedIn) {
+   if(!loggedIn) {
         return redirect('/login');
-    }*/
+    }
 }

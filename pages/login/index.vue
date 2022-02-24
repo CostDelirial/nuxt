@@ -88,7 +88,6 @@ export default {
             try {
       //consulta a base de datos mediante $auth. axios integrado con loginWith
             await this.$auth.loginWith('local',{data:formdata}).then(( resp ) => {
-               console.log(resp);
                if(!resp.data.Success){
                   this.oculto = true
                   this.expand= true
@@ -96,7 +95,10 @@ export default {
                   return this.alerta = resp.data.Message;
                }
                this.$auth.$storage.setLocalStorage('authtoken',resp.data.Data.AuthenticationToken) //guardado de token en localstorage
-               console.log(resp)
+               
+               //console.log(this.$auth.$storage.getLocalStorage('authtoken'))
+            
+               //this.$router.push('/signup')
             })
 
                

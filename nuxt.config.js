@@ -58,12 +58,13 @@ export default {
         token: {
           property: 'token',
           global: true,
-          // required: true,
-          // type: 'Bearer'
+          required: true,
+          type: 'Bearer'
         },
         user: {
           property: 'user',
-          // autoFetch: true
+          autoFetch: true,
+          loggedIn: false
         },
         endpoints: {
           login: { url: '/api/.auth/login/custom', method: 'post' },
@@ -71,6 +72,10 @@ export default {
           user: { url: '/api/auth/user', method: 'get' }
         }
       }
+    },
+    redirect:{
+      login:'/signup',
+      logout:'/login'
     }
   },
 
