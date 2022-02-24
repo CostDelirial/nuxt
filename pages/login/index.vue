@@ -37,7 +37,16 @@
                         <v-btn color="primary" @click="loginHandler">Ingresar</v-btn>
                      </v-card-actions>
                   </v-card>
+                  <br>
+                  <v-alert 
+                  v-show="expand"
+                              border="left"
+                              color="orange"
+                              type="info"
+                              v-if="oculto"
+                              > {{ alerta }}</v-alert>
                </v-flex>
+
             </v-layout>
          </v-container>
       </v-main>
@@ -56,6 +65,9 @@ export default {
                Password: "B}UD@{}Mb(a*KH_",
                ip:"miip",
                Device: "654321",
+               alerta: null,
+               oculto:  false,
+               expand: false,
                rules: {
           required: value => !!value || 'Campo requerido.',
           min: v => v.length >= 8 || 'Minimo 4 caracteres',
@@ -75,9 +87,19 @@ export default {
                 } 
             try {
       //consulta a base de datos mediante $auth. axios integrado con loginWith
-            const resp = await this.$auth.loginWith('local',{data:formdata}).catch( (error)=>(console.log(error)))
+            await this.$auth.loginWith('local',{data:formdata}).then(( resp ) => {
+               console.log(resp);
+               if(!resp.data.Success){
+                  this.oculto = true
+                  this.expand= true
+                  setTimeout(()=>{this.oculto = false},5000)
+                  return this.alerta = resp.data.Message;
+               }
                this.$auth.$storage.setLocalStorage('authtoken',resp.data.Data.AuthenticationToken) //guardado de token en localstorage
                console.log(resp)
+            })
+
+               
             }catch(e){
                 console.log(e.message)
             }
