@@ -46,7 +46,7 @@
 
 <script>
 export default {
-   auth: false,
+   layout: 'login',
    name: 'Login',
    data() {
        return {
